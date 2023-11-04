@@ -1,1 +1,14 @@
 hello world
+
+"""
+url = "https://cricbuzz-cricket.p.rapidapi.com/matches/v1/live"
+
+headers = {
+	"X-RapidAPI-Key": config.api_key,
+	"X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com"
+}
+
+response = requests.get(url, headers=headers)
+
+print(response.json())
+"""
