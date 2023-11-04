@@ -36,7 +36,11 @@ seriesName = data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seri
 #matchesList = data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"][0]
 msg = seriesName #json.dumps(seriesName)
 
-for i in range(2):
+# ICC Matches
+icc_siz = len(data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"])
+
+
+for i in range(icc_siz):
     #matchesList = data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"][i]
     seriesName = data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"]
     team1 = data["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"][i]["matchInfo"]["team1"]["teamName"]
@@ -49,12 +53,12 @@ for i in range(2):
 
     
     msg = f""" Match: {seriesName}
-        {team1} vs {team2}
-        Status: {status}
+    {team1} vs {team2}
+    Status: {status}
 
-        Inning 1:
-        Runs : {i1_runs}
-        Wickets : {i1_wickets}
-        Overs : {i1_overs}
+    Inning 1:
+    Runs : {i1_runs}
+    Wickets : {i1_wickets}
+    Overs : {i1_overs}
     """
-    pywhatkit.sendwhatmsg_instantly(phone_num, msg, 15, True, 7)
+    pywhatkit.sendwhatmsg_instantly(phone_num, msg, 15, True, 3)
