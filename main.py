@@ -88,7 +88,6 @@ def main():
     page_icon="🏏",
     layout="wide"
     )
-    
 
 
     st.markdown(

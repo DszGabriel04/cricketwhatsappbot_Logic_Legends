@@ -36,3 +36,11 @@
 - pywhatkit: To interact with the Whatsapp API and provide functionality to the bot.
 - requests: to connect to the cricket api
 
+---
+# Gallery
+![website image](/img/webapp_page.png)
+
+![whatsapp message](/img/whatsapp%20messages.png)
+
+
+---
