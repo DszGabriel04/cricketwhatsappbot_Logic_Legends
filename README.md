@@ -28,6 +28,7 @@
 - Customisable Alerts 
 - Language Support
 
+
 ---
 
 ## Techstacks involved:
@@ -38,9 +39,10 @@
 
 ---
 # Gallery
-![website image](/img/webapp_page.png)
+![webapp_page](https://github.com/DszGabriel04/cricketwhatsappbot_Logic_Legends/assets/114800260/d36b2a35-d74d-46a8-9cff-1ba0d2a1cacd)
 
-![whatsapp message](/img/whatsapp%20messages.png)
+![whatsapp messages](https://github.com/DszGabriel04/cricketwhatsappbot_Logic_Legends/assets/114800260/d7c86783-13af-4ac9-86bc-fb57d869d9ec)
+
 
 
 ---
