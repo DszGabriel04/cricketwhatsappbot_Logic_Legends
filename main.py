@@ -12,7 +12,7 @@ def requests_api_scraper():
     url = "https://cricbuzz-cricket.p.rapidapi.com/matches/v1/live"
 
     headers = {
-	    "X-RapidAPI-Key": config.api_key_2,
+	    "X-RapidAPI-Key": config.api_key_2, ## api key so get it from rapidapi.com
 	    "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com"
     }
 
@@ -82,6 +82,23 @@ def main():
                #['Domestic', 'CSA Four-Day Series Division Two 2023-24', 'Limpopo', 'Knights', "Complete", 'Day 2: Stumps - Knights lead by 187 runs', 288, 10, 93.1, 475, 4, 98.0]]
     ######
     dataset = requests_api_scraper()
+
+    st.set_page_config(
+    page_title="Whatsapp Cricket Bot",
+    page_icon="🏏"
+    )
+
+    st.markdown(
+    """
+    <style>
+        body {
+            background-color: #7a130f;
+            padding: 0 20px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
 
     st.title("WhatsApp Cricket Bot")
     st.text("Enter which cricket match you would like to see the scores of:")
