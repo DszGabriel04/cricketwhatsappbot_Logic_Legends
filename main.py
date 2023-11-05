@@ -6,9 +6,7 @@ import pywhatkit
 import pprint
 import time 
 
-
-def main():
-
+def requests_api_scraper():
     # Requests Cricket API
     
     url = "https://cricbuzz-cricket.p.rapidapi.com/matches/v1/live"
@@ -66,14 +64,24 @@ def main():
                 matchdat = [team1, team2, status, state, i1_runs, i1_wickets, i1_overs, i2_runs, i2_wickets, i2_overs]
                 #print(matchdat)
                 datas = val + ser + matchdat
+                msg_a = f"{datas[0]} Match:\n{datas[1]}\n{datas[2]} vs {datas[3]}\nStatus: {datas[5]}\nState: {datas[4]}\n"
+                msg_b = f"Inning 1\nRuns: {datas[6]}\nWickets: {datas[7]}\nOvers: {datas[8]}\n\nInning 2\nRuns: {datas[9]}\nWickets: {datas[10]}\nOvers: {datas[11]}"
+                wa_msg = msg_a + msg_b
+                datas.append(wa_msg)
                 dataset.append(datas)
+
+    return dataset            
+
+def main():
+
+    
 
     
     #print(dataset) ## a=main data
-   # dataset = [['International', 'ICC Cricket World Cup 2023', 'Australia', 'England', "Complete", 'Australia won by 33 runs', 286, 10, 49.3, 253, 10, 48.1], 
+    #dataset = [['International', 'ICC Cricket World Cup 2023', 'Australia', 'England', "Complete", 'Australia won by 33 runs', 286, 10, 49.3, 253, 10, 48.1], 
                #['Domestic', 'CSA Four-Day Series Division Two 2023-24', 'Limpopo', 'Knights', "Complete", 'Day 2: Stumps - Knights lead by 187 runs', 288, 10, 93.1, 475, 4, 98.0]]
     ######
-
+    dataset = requests_api_scraper()
 
     st.title("WhatsApp Cricket Bot")
     st.text("Enter which cricket match you would like to see the scores of:")
@@ -106,10 +114,10 @@ def main():
     main_ent = sel_matches[main_val]
     #print(main_ent)
     
-    msg_a = f"{main_ent[0]} Match:\n{main_ent[1]}\n{main_ent[2]} vs {main_ent[3]}\nStatus: {main_ent[5]}\nState: {main_ent[4]}\n"
-    msg_b = f"Inning 1\nRuns: {main_ent[6]}\nWickets: {main_ent[7]}\nOvers: {main_ent[8]}\n\nInning 2\nRuns: {main_ent[9]}\nWickets: {main_ent[10]}\nOvers: {main_ent[11]}"
+    #msg_a = f"{main_ent[0]} Match:\n{main_ent[1]}\n{main_ent[2]} vs {main_ent[3]}\nStatus: {main_ent[5]}\nState: {main_ent[4]}\n"
+    #msg_b = f"Inning 1\nRuns: {main_ent[6]}\nWickets: {main_ent[7]}\nOvers: {main_ent[8]}\n\nInning 2\nRuns: {main_ent[9]}\nWickets: {main_ent[10]}\nOvers: {main_ent[11]}"
 
-    wa_msg = msg_a + msg_b
+    #wa_msg = msg_a + msg_b
 
 
     # radio button
@@ -140,26 +148,35 @@ def main():
             ph_no = f"+91{whatsapp_n}"
             st.success(f"Your requested information will be sent to {ph_no}.")
             
-            pywhatkit.sendwhatmsg_instantly(ph_no, wa_msg, 15, True, 15)
+            pywhatkit.sendwhatmsg_instantly(ph_no, main_ent[12], 15, True, 10)
 
             if(main_ent[4] == "In Progress"):
-                while(main_ent[4] == "In Progress"):
-                    if((main_ent[8] % 1  == 0.0) or (main_ent[11] % 1 == 0.0)):
-                        pywhatkit.sendwhatmsg_instantly(ph_no, wa_msg, 15, True, 15)
-                        response = requests.get(url, headers=headers)
+                #while(main_ent[4] == "In Progress"):
+                    #if((main_ent[8] % 1  == 0.0) or (main_ent[11] % 1 == 0.0)):
+                        for entry in dataset:
+                            if entry[2] == main_ent[2]:
+                                main_ent = entry
+                        pywhatkit.sendwhatmsg_to_group_instantly(gr_id, main_ent[12], 15, True, 10)
+                        
             
         elif(len(whatsapp_n) > 0 and wg):
 
             gr_id = whatsapp_n[26:]
             st.success(f"Your requested information will be sent to your group")
             
-            pywhatkit.sendwhatmsg_to_group_instantly(gr_id, wa_msg, 15, True, 15)
+            pywhatkit.sendwhatmsg_to_group_instantly(gr_id, main_ent[12], 15, True, 10)
 
             if(main_ent[4] == "In Progress"):
-                while(main_ent[4] == "In Progress"):
-                    if((main_ent[8] % 1  == 0.0) or (main_ent[11] % 1 == 0.0)):
-                        pywhatkit.sendwhatmsg_to_group_instantly(gr_id, wa_msg, 15, True, 15)
-                        response = requests.get(url, headers=headers)
+                #while(main_ent[4] == "In Progress"):
+                    #if((main_ent[8] % 1  == 0.0) or (main_ent[11] % 1 == 0.0)):
+                        
+                        #response = requests.get(url, headers=headers)
+                        dataset = requests_api_scraper()
+                        for entry in dataset:
+                            if entry[2] == main_ent[2]:
+                                main_ent = entry
+                        pywhatkit.sendwhatmsg_to_group_instantly(gr_id, main_ent[12], 15, True, 10)
+
 
         else:
             st.warning("Please enter a WhatsApp number or a group link.")
