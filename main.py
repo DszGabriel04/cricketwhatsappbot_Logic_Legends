@@ -85,8 +85,11 @@ def main():
 
     st.set_page_config(
     page_title="Whatsapp Cricket Bot",
-    page_icon="🏏"
+    page_icon="🏏",
+    layout="wide"
     )
+    
+
 
     st.markdown(
     """
